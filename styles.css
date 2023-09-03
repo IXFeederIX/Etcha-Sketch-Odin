@@ -14,7 +14,7 @@ h1 {
 	
 }
 h2{
-text-align: center;
+
 	font-family: Kanit, sans-serif;
 	font-size: 2.5em;
 	text-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
@@ -77,7 +77,7 @@ label{
 	padding: 10px;
 }
 .draw{
-	height: 75%;
+	height: 100%;
 	background-color: white;
 	width: 50%;
 	position: absolute;
@@ -85,5 +85,49 @@ label{
 	z-index: 99999;
 	right: 15%;
 	  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+	  display: grid;
+	  grid-gap: 0;
+	  grid-template-rows: repeat(var(--grid-rows), 1fr);
+	  grid-template-columns: repeat(var(--grid-cols), 1fr);
+bottom: 0;
+}
+.grid-item{
+padding: 1em;
+border: 1px solid lightgray;
+text-align: center;
+cursor: pointer;
+}
+main{
+	display: none;
+}
+.tools-container{
+	width: 75%;
+	height: 15em;
+	margin-left: 50px;
+	border: 3px solid black;
+justify-content: center;
+margin-top: 100px;
+	z-index: 99;
+	display: flex;
+border-radius: 12px;
+}
+.tools {
+font-size: 2em;
+	font-family: Kanit, sans-serif;
+	font-weight: 800;
 
+}
+.buttons{
+	width: 100%;
+	position: absolute;
+	top: 60%;
+}
+.buttons > button{
+	width: 50%;
+	height: 40px;
+	background-color: white;
+border-radius: 12px;
+}
+.buttons > button:hover{
+	background-color: lightgray;
 }

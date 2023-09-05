@@ -131,3 +131,22 @@ border-radius: 12px;
 .buttons > button:hover{
 	background-color: lightgray;
 }
+.drag-alert{
+	font-family: Kanit, sans-serif;
+	float: right;
+	position: absolute;
+	margin: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.drag-alert > span{
+	margin-right: 10px;
+	font-size: 20px;
+}
+.alert{
+	width: 25px;
+height: 25px;
+background-color: red;
+border-radius: 50%;
+}

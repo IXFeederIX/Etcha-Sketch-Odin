@@ -3,7 +3,11 @@ const intro = document.querySelector(".intro")
 const draw = document.querySelector(".draw")
 const main = document.getElementById("main");
 const colors = document.querySelector(".coloress")
-
+const alert = document.querySelector(".alert")
+const pencil = document.querySelector(".pencil")
+const eraser = document.querySelector(".eraser")
+let index;
+ let mouseDown = false;
 
 function createLines(){
 	for (let i = 0; i < 100; i++) {
@@ -18,6 +22,7 @@ buttonStart.addEventListener("click",(e)=>{
 	intro.style.display="none";
 	main.style.display = "block";
 })
+
 function makeRows(rows, cols) {
 	draw.style.overflow = "scroll";
   draw.style.setProperty("--grid-rows", rows);
@@ -26,38 +31,55 @@ function makeRows(rows, cols) {
     let cell = document.createElement("div");
 
     draw.appendChild(cell).className = "grid-item";
-  };
+    const gridItems = document.querySelectorAll(".grid-item")
 
-let ms;
-let index;
-let isHolding;
-
-const gridItems = document.querySelectorAll(".grid-item")
-
-const gridList =Array.from(gridItems)
-
-draw.addEventListener("mouseover",(e)=>{
- index = gridList.indexOf(e.target);
-   
-
+    const gridArray = Array.from(gridItems)
+function eraseColor(){
+  for(let i = 0; i < gridItems.length; i++){
+    gridItems[i].style.backgroundColor = "white";
+  }
+}
+eraser.addEventListener("click",(e)=>{
+  eraseColor()
 })
-draw.addEventListener("mousedown",(e)=>{
-  e.preventDefault();
-  isHolding = true;
-  if (isHolding === true) {
-    ms = setInterval(() => {
-gridItems[index].style.backgroundColor = colors.value;
-      console.log(index);
-    }, 0);
+    cell.addEventListener("click",(e)=>{
+  const target = e.target;
+   if (target.classList.contains("grid-item")) {
+    index = gridArray.indexOf(target);
+
+   
+      gridItems[index].style.backgroundColor = colors.value;
+    
   }
 })
-draw.addEventListener("mouseup", () => {
-  
-  clearInterval(ms);
-  isHolding = null;
-  ms = 1;
-  
-});
+
+cell.addEventListener("mouseover",(e)=>{
+  const target = e.target;
+   if (target.classList.contains("grid-item") && mouseDown === true) {
+    index = gridArray.indexOf(target);
+
+   
+      gridItems[index].style.backgroundColor = colors.value;
+    
+  }
+
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
+
+if(mouseDown === false){
+  alert.style.backgroundColor = "red";
+
+}else{
+  alert.style.backgroundColor = "green";
+}
+if(colors.value !== ""){
+pencil.style.backgroundColor = "lightgray";
+}
+
+})
+  };
+
+
  }
 makeRows(16,16);
 

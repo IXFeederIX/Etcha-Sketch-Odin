@@ -1,13 +1,16 @@
 const lineContainer = document.querySelector(".line-container")
 const intro = document.querySelector(".intro")
-const draw = document.querySelector(".draw")
+
 const main = document.getElementById("main");
 const colors = document.querySelector(".coloress")
 const alert = document.querySelector(".alert")
 const pencil = document.querySelector(".pencil")
 const eraser = document.querySelector(".eraser")
+const fullscreen = document.querySelector(".fullscreen")
+const colorsDiv = document.querySelector(".color-container")
 let index;
  let mouseDown = false;
+ const draw = document.querySelector(".draw")
 
 function createLines(){
 	for (let i = 0; i < 100; i++) {
@@ -21,6 +24,7 @@ const buttonStart = document.getElementById("button")
 buttonStart.addEventListener("click",(e)=>{
 	intro.style.display="none";
 	main.style.display = "block";
+
 })
 
 function makeRows(rows, cols) {
@@ -81,7 +85,9 @@ pencil.style.backgroundColor = "lightgray";
 
 
  }
-makeRows(16,16);
+ const rowsInput = document.querySelector("input[name='rows']");
+const colsInput = document.querySelector("input[name='cols']");
+makeRows(rowsInput.value, colsInput.value);
 
 window.addEventListener('dragstart', event => {
   event.preventDefault();

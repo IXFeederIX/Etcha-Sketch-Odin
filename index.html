@@ -13,7 +13,14 @@
 	<div class="intro">
 		<div class="start-menu">
 			<h1>Welcome to Etch-a-Sketch</h1>
-			<button id="button"> <i class="fa-solid fa-pencil"></i> Let's Draw!</button>
+			<button id="button" onclick="makeRows(rowsInput.value, colsInput.value)"> <i class="fa-solid fa-pencil"></i> Let's Draw!</button>
+			<div class="cells-option">
+						<label for="rows">Rows: </label>
+<input type="number" name="rows" id="rows" value="16" !important class="cellsInput">
+<label for="cols">Cols: </label>
+<input type="number" name="cols" id="cols" value="16" !important class="cellsInput">
+			</div>
+
 		</div>
 		
 		<div class="line-container">

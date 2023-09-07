@@ -5,7 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<script src="https://kit.fontawesome.com/e8ceb53c90.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
 	<link rel="stylesheet" href="coloris.min.css"/>
+
+
 <script src="coloris.min.js"></script>
 	<title>doodle</title>
 </head>
@@ -30,6 +33,14 @@
 
 	</div>
 	<main id="main">
+		<div class="zoom">
+			<button class="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+			<button class="zoomOut"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+			<button class="hide-cells"><i class="fa-solid fa-eye"></i></button>
+			<button class="download"><i class="fa-solid fa-download"></i></button>
+			<button class="restoreScreen"><i class="fa-regular fa-window-restore"></i></button>
+<button class="close"><i class="fa-solid fa-xmark"></i></button>
+		</div>
 			<h2>Draw What you Want!</h2>
 				<div class="drag-alert">
 		<span>Drag:</span> <div class="alert"></div>
@@ -49,6 +60,7 @@
 
 </div>
 			</div>
+
 <div class="draw">
 
 </div>
@@ -58,4 +70,5 @@
 </body>
 
 <script type="text/javascript" src="script.js"></script>
+
 </html>

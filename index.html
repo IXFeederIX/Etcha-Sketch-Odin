@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<script src="https://kit.fontawesome.com/e8ceb53c90.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js"></script>
+
 	<link rel="stylesheet" href="coloris.min.css"/>
 
 
@@ -14,8 +15,11 @@
 </head>
 <body>
 	<div class="intro">
+		<div class="cover"></div>
 		<div class="start-menu">
-			<h1>Welcome to Etch-a-Sketch</h1>
+			
+			<img src="heart.png" alt=""><h1>PixTheART</h1>
+		
 			<button id="button" onclick="makeRows(rowsInput.value, colsInput.value)"> <i class="fa-solid fa-pencil"></i> Let's Draw!</button>
 			<div class="cells-option">
 						<label for="rows">Rows: </label>
@@ -26,47 +30,55 @@
 
 		</div>
 		
-		<div class="line-container">
-			<div class="line"></div>
-		</div>
 		
 
 	</div>
 	<main id="main">
+		<div class="grid-fullscreen">
+			<button class="hide-cells"><img src="icons/eye.png" alt="" class="icon"></button>
+	<button class="fullscreen"><img src="icons/fullscreen.png" alt="" class="icon"></button>
+		</div>
 		<div class="zoom">
 			<button class="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
 			<button class="zoomOut"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
-			<button class="hide-cells"><i class="fa-solid fa-eye"></i></button>
-			<button class="download"><i class="fa-solid fa-download"></i></button>
-			<button class="restoreScreen"><i class="fa-regular fa-window-restore"></i></button>
-<button class="close"><i class="fa-solid fa-xmark"></i></button>
+		
+			<button class="download"><img src="icons/download.png" alt="" class="icon"></button>
+			<button class="restoreScreen"><img src="icons/restorescreen.png" alt="" class="icon"></button>
+<button class="close"><img src="icons/close.png" alt="" class="icon"></button>
 		</div>
-			<h2>Draw What you Want!</h2>
+		
 				<div class="drag-alert">
 		<span>Drag:</span> <div class="alert"></div>
 	</div>
-			<div class="color-container">
-				<label for="color-picker">Color Picker</label>
-	<input class="coloress" type="text" id="color-picker" name="color-picker" data-coloris>
-<div class="tools-container">
-	<span class="tools">Tools</span>
-	<div class="buttons">
-			<button class="pencil"><i class="fa-solid fa-pencil"></i></button>
-	<button class="eraser"><i class="fa-solid fa-eraser"></i></button>
-	<button class="fullscreen"><i class="fa-solid fa-display"></i></button>
+		
+				
+				<div class="picker">
+					<label for="color-picker">Color Picker:</label>
+						<input class="coloress" type="text" id="color-picker" name="color-picker" data-coloris>
+				</div>
 
-	</div>
-
+<div class="tools">
+				<button class="pencil"><img src="icons/pencil.png" alt="" class="icon" dblclick="false"></button>
+<button class="gum"><img src="icons/eraser.png" alt="" class="icon" dblclick="false"></button>
+		
 
 </div>
-			</div>
+
+
+
+
+
+
 
 <div class="draw">
 
 </div>
-
+<div class="delete">
+	<button class="eraser"><img src="icons/trash.png" alt="" class="icon"></button>
+</div>
+	
 		</main>
-
+<footer class="footer">PixTheART - Made by Omar Rivero(IXFeederIX) - <span class="date"></span></footer>
 </body>
 
 <script type="text/javascript" src="script.js"></script>

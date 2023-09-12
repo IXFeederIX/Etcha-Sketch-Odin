@@ -1,4 +1,5 @@
-const lineContainer = document.querySelector(".line-container")
+ const rowsInput = document.querySelector("input[name='rows']");
+const colsInput = document.querySelector("input[name='cols']");
 const intro = document.querySelector(".intro")
 const zoom = document.querySelector(".zoom")
 const main = document.getElementById("main");
@@ -13,35 +14,81 @@ const download = document.querySelector(".download")
 const close = document.querySelector(".close")
 const restoreScreen = document.querySelector(".restoreScreen")
 const minimap = document.createElement("div")
+const cover = document.querySelector(".cover")
+const preview = document.createElement("img")
+const date = document.querySelector(".date")
+const footer = document.querySelector(".footer")
+const gum = document.querySelector(".gum")
+date.innerHTML = "Copyright " + new Date().getFullYear()
+const body = document.body;
+const images = ["wp/1.png", "wp/2.png", "wp/3.png", "wp/4.png", "wp/5.png", "wp/6.png", "wp/7.png", "wp/8.png", "wp/9.png"];
+
+const preload = (images) => {
+  for (const image of images) {
+    const img = new Image();
+    img.src = image;
+    img.onload = () => {
+      img.style.transition = "background-image 3000ms linear";
+
+    };
+  }
+};
+
+const animate = () => {
+  body.style.backgroundImage = `url(${images[Math.floor(Math.random() * images.length)]})`;
+};
+
+preload(images);
+ let intervalSet = setInterval(animate,3000)
+
+minimap.appendChild(preview)
+preview.classList.add("preview")
 let index;
  let newX;
   let newY;
  let mouseDown = false;
  let watchCells = true;
  let dragEnabled = false;
+
  let fullScreenEnabled = false;
 
  const draw = document.querySelector(".draw")
+function updatePreview(){
+html2canvas(draw, {
+ scale: 0.5,
+ quality: 0.5
+}).then(canvas => {
+    let enlace = document.createElement('a');
+      enlace.download = "myDraw.png";
+  
+      enlace.href = canvas.toDataURL();
+      preview.src = enlace.href;
+  
+    })
+}
 
-function createLines(){
-	for (let i = 0; i < 100; i++) {
-	const newLines = document.createElement("div");
-	newLines.classList.add("line")
-	lineContainer.appendChild(newLines)
-}
-}
-createLines()
+
 const buttonStart = document.getElementById("button")
 buttonStart.addEventListener("click",(e)=>{
-	intro.style.display="none";
+ clearInterval(intervalSet);
+body.style.backgroundImage = ""
+footer.style.display = "none"
+	updatePreview()
+  intro.style.display="none";
 	main.style.display = "block";
+  cover.style.display = "none"
+
 document.body.appendChild(minimap)
 minimap.classList.add("minimap")
+
 })
 
 function makeRows(rows, cols) {
+  colors.value = "#000"
+  pencil.classList.add("active")
 const minimapGrid = document.createElement("div")
 minimap.appendChild(minimapGrid)
+
 minimapGrid.classList.add("minimapGrid")
   draw.style.setProperty("--grid-rows", rows);
   draw.style.setProperty("--grid-cols", cols);
@@ -57,7 +104,9 @@ minimapGrid.classList.add("minimapGrid")
 function eraseColor(){
   for(let i = 0; i < gridItems.length; i++){
     gridItems[i].style.backgroundColor = "white";
+     
   }
+
 }
 
 
@@ -76,17 +125,19 @@ eraser.addEventListener("click",(e)=>{
 })
 
 cell.addEventListener("mouseover",(e)=>{
+
   const target = e.target;
    if (target.classList.contains("grid-item") && mouseDown === true) {
     index = gridArray.indexOf(target);
 
    
       gridItems[index].style.backgroundColor = colors.value;
-    
+   
+
   }
 
 document.body.onmousedown = () => (mouseDown = true)
-document.body.onmouseup = () => (mouseDown = false)
+document.body.onmouseup = () => (mouseDown = false, updatePreview())
 
 if(mouseDown === false){
   alert.style.backgroundColor = "red";
@@ -94,29 +145,38 @@ if(mouseDown === false){
 }else{
   alert.style.backgroundColor = "green";
 }
-if(colors.value !== ""){
-pencil.style.backgroundColor = "lightgray";
-}
+
 
 })
 
   };
+download.addEventListener("click", (e) => {
+if (watchCells === true) {
+  SeeCells.click()
+}else{
 
-  download.addEventListener("click",(e)=>{
-    html2canvas(draw)
-    .then(canvas =>{
-    let enlace = document.createElement('a');
-      enlace.download = "myDraw.png";
-  
-      enlace.href = canvas.toDataURL();
+}
 
-      enlace.click();
-    })
+
+
+
+
+
+  html2canvas(draw, {
+    width: rowsInput.value,
+    height: colsInput.value,
+scale: 5
   })
+    .then(canvas => {
+      const a = document.createElement("a");
+      a.download = "myDraw.png";
+      a.href = canvas.toDataURL();
+      a.click();
+    });
+});
 
  }
- const rowsInput = document.querySelector("input[name='rows']");
-const colsInput = document.querySelector("input[name='cols']");
+
 
 makeRows(rowsInput.value, colsInput.value);
 
@@ -129,11 +189,15 @@ window.addEventListener('drop', event => {
   event.preventDefault();
 });
 fullscreen.addEventListener("click",(e)=>{
+draw.style.width = "100%"
+draw.style.height = "100%"
+draw.style.bottom = "0%"
+draw.style.right = "0";
+draw.style.margin = "0";
 setTimeout(()=>{
 
 
-draw.style.width = "100%"
-draw.style.right = "0";
+
 zoom.style.display = "block";
 fullScreenEnabled = true;
 draw.style.boxShadow = "";
@@ -156,7 +220,7 @@ close.addEventListener("click",(e)=>{
   newY = "";
   setTimeout(()=>{
   draw.style.width = "50%"
-draw.style.right = "15%";
+draw.style.right = "20%";
 zoom.style.display = "none";
  zoomLevel = 1.0;
   draw.style.transform = "scale(" + zoomLevel + ")"
@@ -171,7 +235,7 @@ draw.addEventListener("mousedown", function(event) {
 if(event.ctrlKey && !dragEnabled && fullScreenEnabled === true){
     this.originalX = event.clientX;
   this.originalY = event.clientY;
-  console.log(this.style.left)
+
   dragEnabled = true;
   fullScreenEnabled = true;
 }
@@ -221,23 +285,34 @@ zoomOut.addEventListener("click", (e) => {
 
 })
 SeeCells.addEventListener("click",(e)=>{
-if(draw.childElementCount > 0 && watchCells === true){
+
+ watchCells = !watchCells;
+
   for (let i = 0; i < draw.childElementCount; i++) {
     if (draw.children[i].classList.contains("grid-item")) {
-    watchCells = false
-    draw.children[i].style.border = "none";
+      draw.children[i].style.border = watchCells ? "1px solid lightgray" : "none";
     }
   }
- 
-}else if(draw.childElementCount > 0 && watchCells === false){
-    for (let i = 0; i < draw.childElementCount; i++) {
-    if (draw.children[i].classList.contains("grid-item")) {
-    watchCells = true;
-    draw.children[i].style.border = "1px solid lightgray";
-    }
+
+  updatePreview();
+
+})
+const tools = document.querySelector(".tools");
+tools.addEventListener("click", (e) => {
+  let target = e.target;
+
+  if (target === tools || target.nodeName === "IMG") {
+    return; 
   }
+  
+  for (let i = 0; i < tools.childElementCount; i++) {
+    if (tools.children[i].classList.contains("active")) {
+      tools.children[i].classList.remove("active");
+    }
+    e.target.classList.add("active");
+  }
+});
+gum.addEventListener("click",(e)=>{
+      colors.value = "#fff";
  
-
-}
-
 })
